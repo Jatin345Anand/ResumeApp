@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <!-- <script src="{% static 'js/custom.js' %}"></script> -->
+</head>
+
+<body>
+    <h3>WELCOME TO LOGIN </h3>
+    <!-- <h1>Contact Us {{contact}}</h1> -->
+    <!-- <button id="sa" class="btn wave-light">START ANIMATION</button> -->
+    <form action="/ravibasics/loginresponse/" method="POST"> {% csrf_token %}
+        <table>
+            <thead>
+                <th>QUERIES</th>
+                <th>ANSWERS</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ENTER USER NAME</td>
+                    <td>
+                        <input type="text" autofocus id="u_name" placeholder="Enter Username" name="username">
+                    </td>
+                    <td>
+
+                        {% if errors %}
+                        <ul>
+
+                            {% for e in errors %}
+                            <li>{{e}}</li>
+                            {% endfor %}
+
+                        </ul>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>ENTER PASSWORD</td>
+                    <td> <input type="password" placeholder="Enter Password" id="p_name" name="password"></td>
+                    <td><span id="error"></span></td>
+                </tr> 
+            </tbody>
+        </table>
+        <input class="btn waves-light" type="submit" value="LOGIN" name="login" id="dologin" />
+        <div class="file-field input-field">
+                <div class="btn">
+                    <span>GGSIPU RESULT PDF</span>
+                    <input type="file" name="ipupdf" id="ipupdf">
+                </div>
+                <h3>{{pdferror}}</h3>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" name="ipupdfname" id="ipupdfname">
+                </div>
+            </div>
+    
+            <div id="Buttons">
+    
+                <input class="btn waves-light" id="changepdftoxls" type="submit" value="CHANGE PDF TO XLS" name="action" />
+    
+                <input class="btn waves-light" id="downloadxls" type="submit" value="DOWNLOAD XLS" name="action" />
+            </div>
+            <hr><br><br><br>
+    <form action="uploadxls" id="downloadform" method="POST">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>DOWNLOADED XLS</span>
+                <input type="file" name="idxls">
+            </div>
+            <h3>{{xlserror}}</h3>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="xlsname" id="xlsname">
+            </div>
+        </div>
+
+        <div id="Buttons">
+            <input class="btn waves-light" id="changepdftoxls" type="submit" value=" UPLOAD XLS" name="action" />
+            <input class="btn waves-light" id="changepdftoxls" type="submit" value="PUSH DATA TO CLOUD" name="action" />
+
+
+        </div>
+        
+    </form>
+{% load staticfiles %}
+<!-- <script {% static 'jquery-3.2.1.min.js' %}></script> -->
+ 
+ {% block javascript %}
+     
+ <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>      
+<script>
+    $(document).ready(function(){
+        $('#p_name').blur(function(){
+            var username = $(this).val();
+            $.ajax(
+                {
+                    url:'/loginValidate/',
+                    data:{
+                        'username':username
+                    },
+                    dataType:'json',
+                    success: function(data){
+                        $("#error").html(data);
+                    }  
+                }
+            )
+        })
+    })
+
+</script>
+{% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/createxlsfrompdf.css' %}">
+</head>
+
+<body>
+    <h4>WELCOME TO XLS CREATOR APP BY GGSIPU RESULT PDF</h4>
+    <!-- <h5>Today is <span>{{today}}</span></h5> -->
+    <!-- <h5>Time is {{time}}</h5> -->
+    <br><br><br>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- <input type="file" name="updf"/> -->
+        <div class="file-field input-field" id="filediv">
+            <div class="btn">
+              <span>SELECT PDF File</span>
+              <input type="file" name="updf"/>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        <!-- {{ form.as_p }} -->
+        <br><br>
+        <button type="submit" class="save btn btn-default">UPLOAD</button> &nbsp; &nbsp;
+        <!-- <input type="button" class="btn waves-light" name="download" value="DOWNLOAD"> -->
+        <a  class="btn waves-light" href={{downloadpath}} download={{downloadpath}}>DOWNLOAD XLS</a>   
+        <!-- <a  class="btn waves-light" href="../static/output/recheckingmixed.xls" download="../static/output/recheckingmixed.xls">DOWNLOAD XLS</a> -->
+    </form>
+    
+    <!-- <form action="/loginresponse/" method="POST"> {% csrf_token %}
+        <table>
+            <thead>
+                <th>QUERIES</th>
+                <th>ANSWERS</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ENTER USER NAME</td>
+                    <td>
+                        <input type="text" placeholder="Enter Username" name="username">
+                    </td>
+                    <td>
+
+                        {% if errors %}
+                        <ul>
+
+                            {% for e in errors %}
+                            <li>{{e}}</li>
+                            {% endfor %}
+
+                        </ul>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>ENTER PASSWORD</td>
+                    <td> <input type="text" placeholder="Enter Password" name="password"></td>
+                </tr> 
+            </tbody>
+        </table>
+        <input class="btn waves-light" type="submit" value="LOGIN" name="login" id="dologin" />
+    </form> -->
+</body>
+
+</html>
